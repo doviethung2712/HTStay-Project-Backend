@@ -19,11 +19,17 @@ abstract class BaseRepository implements BaseInterface
 
     public function getAll()
     {
+
+        return DB::table($this->table)->get();
     }
     public function getById($id)
     {
+
+        return DB::table($this->table)->where('id', $id)->first();
     }
     public function deleteById($id)
     {
+
+        DB::table($this->table)->where('id', $id)->delete();
     }
 }
