@@ -9,8 +9,6 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'price' => rand(10, 1000),
         ];
     }
 }
