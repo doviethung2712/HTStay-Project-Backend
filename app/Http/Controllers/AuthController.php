@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Validator;
 
 //use Validator;
 
+
+
 class AuthController extends Controller
 {
     public $authService;
@@ -57,6 +59,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     public function changePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -83,6 +86,5 @@ class AuthController extends Controller
         }
 
     }
-
 
 }
