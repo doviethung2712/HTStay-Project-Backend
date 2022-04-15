@@ -5,23 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-use Validator;
+use Illuminate\Support\Facades\Validator;
+
+//use Validator;
+
+
 
 class AuthController extends Controller
 {
     public $authService;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->authService = $userRepository;
     }
+
     public function registerUser(Request $request)
     {
         $this->authService->register($request);
         return response()->json('susscess', 201);
     }
+
     public function getAll()
     {
         $user = User::all();
@@ -50,4 +58,33 @@ class AuthController extends Controller
             'message' => 'Đăng nhập thành công'
         ]);
     }
+
+
+    public function changePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'oldPassword' => 'required',
+            'newPassword' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $user = Auth::user();
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->newPassword)
+            ]);
+            return response()->json([
+                'message' => 'Password successfully updated',
+                'status' => 'Success'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Mật khẩu cũ không khớp',
+                'status' => 'Errors'
+            ], 400);
+        }
+
+    }
+
 }
