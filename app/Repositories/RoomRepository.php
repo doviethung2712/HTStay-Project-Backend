@@ -39,6 +39,14 @@ class RoomRepository extends BaseRepository {
         // DB::table("rooms")->where('id',$id)->update($data);
     }
 
+    public function getAll()
+    {
+        return DB::table("rooms")->join('users', 'users.id' ,'=','rooms.user_id')
+        ->join('categories', 'categories.id' ,'=','rooms.category_id')
+        ->join('city','city.id','=','rooms.city_id')
+        ->select('rooms.*',"city.name as cityname","categories.name as categoryname","users.name as username")
+        ->get();
+    }
 }
 
 
