@@ -9,4 +9,8 @@ class City extends Model
 {
     use HasFactory;
     protected $table = 'city';
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
