@@ -22,12 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Route::get('register',[AuthController::class,'getAll']);
-Route::post('register',[AuthController::class,'registerUser']);
-Route::post('login',[AuthController::class,'login']);
+Route::post('register', [AuthController::class, 'registerUser']);
+Route::post('login', [AuthController::class, 'login']);
 
-Route::prefix('admin')->middleware(['auth.jwt'])->group(function (){
-    Route::post('password',[AuthController::class,'changePassword']);
-    Route::resource('room',RoomController::class);
+Route::prefix('admin')->middleware(['auth.jwt'])->group(function () {
+    Route::post('password', [AuthController::class, 'changePassword']);
 });
-
-
+Route::resource('room', RoomController::class);
