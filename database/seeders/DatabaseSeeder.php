@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             CitySeeder::class,
+            StatusSeeder::class,
             RoomSeeder::class,
             ImageSeeder::class,
             RatingSeeder::class,

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
@@ -29,5 +30,6 @@ Route::prefix('admin')->middleware(['auth.jwt'])->group(function (){
     Route::post('password',[AuthController::class,'changePassword']);
     Route::get('logout',[AuthController::class,'logout']);
     Route::resource('room',RoomController::class);
+    Route::get('bookingdetail',[UserController::class,'bookingDetail']);
 });
 

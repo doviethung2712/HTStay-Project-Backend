@@ -14,6 +14,8 @@ class CreateRoomsTable extends Migration
             $table->string('address');
             $table->string('description');
             $table->string('shortdescription');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('city_id');

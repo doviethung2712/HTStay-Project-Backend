@@ -14,6 +14,8 @@ class CreateBookingsTable extends Migration
             $table->date('endDay');
             $table->date('bookingDay');
             $table->double('price');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('room_id');
