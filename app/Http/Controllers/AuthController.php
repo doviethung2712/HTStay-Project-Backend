@@ -59,6 +59,15 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+           'message'=>'logout success',
+           'status'=>'success'
+        ],201);
+    }
+
 
     public function changePassword(Request $request)
     {
@@ -86,5 +95,6 @@ class AuthController extends Controller
         }
 
     }
+
 
 }

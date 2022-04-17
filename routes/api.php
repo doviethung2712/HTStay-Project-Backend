@@ -25,10 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'registerUser']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::prefix('admin')->middleware(['auth.jwt'])->group(function () {
-    Route::post('password', [AuthController::class, 'changePassword']);
-});
-Route::middleware(['auth.jwt'])->group(function () {
-    Route::resource('room', RoomController::class);
+Route::prefix('admin')->middleware(['auth.jwt'])->group(function (){
+    Route::post('password',[AuthController::class,'changePassword']);
+    Route::get('logout',[AuthController::class,'logout']);
+    Route::resource('room',RoomController::class);
 });
 
