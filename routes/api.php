@@ -27,6 +27,7 @@ Route::post('login',[AuthController::class,'login']);
 
 Route::prefix('admin')->middleware(['auth.jwt'])->group(function (){
     Route::post('password',[AuthController::class,'changePassword']);
+    Route::get('logout',[AuthController::class,'logout']);
     Route::resource('room',RoomController::class);
 });
 
