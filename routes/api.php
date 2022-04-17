@@ -30,6 +30,8 @@ Route::prefix('admin')->middleware(['auth.jwt'])->group(function (){
     Route::post('password',[AuthController::class,'changePassword']);
     Route::get('logout',[AuthController::class,'logout']);
     Route::resource('room',RoomController::class);
+    Route::post('booking',[UserController::class,'booking']);
     Route::get('bookingdetail',[UserController::class,'bookingDetail']);
+    Route::get('cancelbooking/{id}',[UserController::class,'cancelBooking']);
 });
 
