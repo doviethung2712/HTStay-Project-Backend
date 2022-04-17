@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Booking;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,7 +39,7 @@ class UserRepository extends BaseRepository
     public function bookingRoom($request)
     {
         $booking = new Booking();
-        $booking->startDay = $request->starDay;
+        $booking->startDay = $request->startDay;
         $booking->endDay = $request->endDay;
         $booking->bookingDay = $request->bookingDay;
         $booking->price = $request->price;
@@ -50,13 +51,26 @@ class UserRepository extends BaseRepository
 
     public function bookingDetail($id)
     {
-        return DB::table('bookings')->join('users','users.id','=','bookings.user_id')
-            ->join('status','status.id','=','bookings.status_id')
-            ->join('rooms','rooms.id','=','bookings.room_id')
-            ->join('categories','categories.id','=','rooms.category_id')
-            ->select('bookings.*','users.name as username','rooms.name as roomname','status.name as statusname','categories.name as categoryname')
-            ->where('users.id',$id)
+        return DB::table('bookings')->join('users', 'users.id', '=', 'bookings.user_id')
+            ->join('status', 'status.id', '=', 'bookings.status_id')
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->join('categories', 'categories.id', '=', 'rooms.category_id')
+            ->select('bookings.*', 'users.name as username', 'rooms.name as roomname', 'status.name as statusname', 'categories.name as categoryname')
+            ->where('users.id', $id)
             ->get();
+    }
+
+    public function cancelBooking($id)
+    {
+        $booking = Booking::where('id', $id)
+            ->where('bookingDay', '>', Carbon::now()->subDay(2))
+            ->get();
+        if (count($booking) > 0) {
+            Booking::destroy($id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
