@@ -13,7 +13,8 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('description');
-            $table->string('shortdescription');
+            $table->integer('bedroom');
+            $table->integer('bathroom');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedBigInteger('category_id');
