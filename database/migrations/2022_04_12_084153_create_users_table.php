@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-             $table->string('password');
+            $table->string('password');
             $table->string('image')->nullable();
             $table->string('address')->nullable();
             $table->unsignedBigInteger('role_id');
