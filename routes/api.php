@@ -44,4 +44,7 @@ Route::prefix('user')->middleware(['auth.jwt'])->group(function () {
 
 });
 Route::resource('room', RoomController::class);
+Route::get('category',[RoomHostController::class, 'category']);
+Route::get('city',[RoomHostController::class, 'city']);
+Route::get('status',[RoomHostController::class, 'status']);
 
