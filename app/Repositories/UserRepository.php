@@ -29,7 +29,7 @@ class UserRepository extends BaseRepository
     public function register($request)
     {
         User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id
