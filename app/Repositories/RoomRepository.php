@@ -25,7 +25,8 @@ class RoomRepository extends BaseRepository
         $room->name = $data['name'];
         $room->address = $data['address'];
         $room->description = $data['description'];
-        $room->shortdescription = $data['shortdescription'];
+        $room->bedroom = $data['bedroom'];
+        $room->bathroom = $data['bathroom'];
         $room->status_id = $data['status_id'];
         $room->city_id = $data['city_id'];
         $room->category_id = $data['category_id'];
@@ -37,14 +38,15 @@ class RoomRepository extends BaseRepository
     {
 
         $room = Room::findOrFail($id);
-        $room->name = $data['name'];
-        $room->address = $data['address'];
-        $room->description = $data['description'];
-        $room->shortdescription = $data['shortdescription'];
-        $room->status_id = $data['status_id'];
-        $room->city_id = $data['city_id'];
-        $room->category_id = $data['category_id'];
-        $room->user_id = $data['user_id'];
+        $room->name = $data['name'] ?? $room->name;
+        $room->address = $data['address'] ?? $room->address;
+        $room->description = $data['description'] ?? $room->description;
+        $room->bedroom = $data['bedroom'] ?? $room->bedroom;
+        $room->bathroom = $data['bathroom'] ?? $room->bathroom;
+        $room->status_id = $data['status_id']?? $room->status_id;
+        $room->city_id = $data['city_id'] ?? $room->city_id;
+        $room->category_id = $data['category_id'] ?? $room->category_id;
+        $room->user_id = $data['user_id'] ?? $room->user_id;
         $room->save();
 
         // DB::table("rooms")->where('id',$id)->update($data);
