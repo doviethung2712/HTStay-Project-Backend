@@ -31,6 +31,7 @@ class UserRepository extends BaseRepository
         User::create([
             'username' => $request->username,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id
         ]);

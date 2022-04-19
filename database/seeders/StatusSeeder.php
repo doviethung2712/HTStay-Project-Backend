@@ -15,19 +15,16 @@ class StatusSeeder extends Seeder
     public function run()
     {
         $status = new Status();
-        $status->name = 'Chưa có người đặt';
+        $status->name = 'Còn trống';
         $status->save();
 
         $status = new Status();
-        $status->name = 'Đang đặt';
+        $status->name = 'Đã thuê';
         $status->save();
 
         $status = new Status();
-        $status->name = 'Đã có người đặt';
+        $status->name = 'Đang nâng cấp';
         $status->save();
 
-        $status = new Status();
-        $status->name = 'Chưa đặt';
-        $status->save();
     }
 }

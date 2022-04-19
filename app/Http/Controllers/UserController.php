@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -28,6 +29,16 @@ class UserController extends Controller
 
     public function booking(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'price' => 'required',
+            'startDay' => 'required',
+            'endDay' => 'required',
+            'bookingDay' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
         $this->userRepository->bookingRoom($request);
         Mail::to(Auth::user()->email)->send(new TestMail());
         return response()->json([

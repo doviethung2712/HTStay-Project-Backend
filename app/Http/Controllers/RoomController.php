@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Repositories\RoomRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
     public $roomRepository;
+
     public function __construct(RoomRepository $roomRepository)
     {
         $this->roomRepository = $roomRepository;
@@ -112,4 +115,41 @@ class RoomController extends Controller
         }
         return response()->json($res);
     }
+
+    public function multiSearch(Request $request)
+    {
+        $result = $this->roomRepository->search();
+        if (!empty($request->name)) {
+            $result = $result->where('rooms.name', 'like', '%' . $request->name . '%');
+        }
+        if (!empty($request->bedroom)) {
+            $result = $result->where('rooms.bedroom', 'like', '%' . $request->bedroom . '%');
+        }
+        if (!empty($request->bathroom)) {
+            $result = $result->where('rooms.bathroom', 'like', '%' . $request->bathroom . '%');
+        }
+        if (!empty($request->address)) {
+            $result = $result->where('rooms.address', 'like', '%' . $request->address . '%');
+        }
+        if (!empty($request->categoryname)) {
+            $request = $result->where('categories.name', 'like', '%' . $request->categoryname . '%');
+        }
+        if (!empty($request->price)) {
+            if ($request->price == 1) {
+                $result = $result->where('categories.price', '<', '5000');
+            }
+            if ($request->price == 2) {
+                $result = $result->whereBetween('categories.price', [500, 5000]);
+            }
+            if ($request->price == 3) {
+                $result = $result->where('categories.price', '>', '5000');
+            }
+        };
+        $res = $result->get();
+        return response()->json($res, 201);
+
+
+    }
+
+
 }
