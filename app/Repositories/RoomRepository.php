@@ -52,12 +52,22 @@ class RoomRepository extends BaseRepository
 
     public function getAll()
     {
-        return DB::table("rooms")->join('users', 'users.id', '=', 'rooms.user_id')
+        return DB::table(
+            'rooms')->join('users', 'users.id', '=', 'rooms.user_id')
             ->join('categories', 'categories.id', '=', 'rooms.category_id')
             ->join('city', 'city.id', '=', 'rooms.city_id')
-            ->join('images','rooms.id','=','images.room_id')
-            ->select('rooms.*','images.image as image', "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
+            ->join('images', 'rooms.id', '=', 'images.room_id')
+            ->select('rooms.*', 'images.image as image', "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
             ->get();
+    }
+
+    public function search()
+    {
+        return DB::table('rooms')->join('users', 'users.id', '=', 'rooms.user_id')
+            ->join('categories', 'categories.id', '=', 'rooms.category_id')
+            ->join('city', 'city.id', '=', 'rooms.city_id')
+//            ->join('images', 'rooms.id', '=', 'images.room_id')
+            ->select('rooms.*', "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username");
     }
 }
 
