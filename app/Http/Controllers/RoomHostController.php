@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Status;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,5 +33,21 @@ class RoomHostController extends Controller
                 'status' => 'error'
             ], 401);
         }
+    }
+
+    public function category()
+    {
+        $res = Category::all();
+        return response()->json($res, 201);
+    }
+
+    public function city(){
+        $res = City::all();
+        return response()->json($res, 201);
+    }
+
+    public function status(){
+        $res = Status::all();
+        return response()->json($res, 201);
     }
 }
