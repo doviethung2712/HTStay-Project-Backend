@@ -30,6 +30,7 @@ class RoomRepository extends BaseRepository
         $room->status_id = $data['status_id'];
         $room->city_id = $data['city_id'];
         $room->category_id = $data['category_id'];
+        // $room->image = $data['image'];
         $room->user_id = $data['user_id'];
         $room->save();
     }
