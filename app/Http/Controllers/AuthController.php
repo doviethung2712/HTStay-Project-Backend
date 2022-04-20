@@ -99,7 +99,7 @@ class AuthController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Mật khẩu cũ không khớp',p
+                'message' => 'Mật khẩu cũ không khớp',
                 'status' => 'Errors'
             ], 400);
         }

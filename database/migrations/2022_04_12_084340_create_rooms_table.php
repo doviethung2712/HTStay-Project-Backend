@@ -15,6 +15,7 @@ class CreateRoomsTable extends Migration
             $table->string('description');
             $table->integer('bedroom');
             $table->integer('bathroom');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
             $table->unsignedBigInteger('category_id');
