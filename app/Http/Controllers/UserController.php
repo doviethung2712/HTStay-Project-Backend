@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\TestMail;
 use App\Models\User;
-use App\Repositories\UserRepository;
-use Illuminate\Http\JsonResponse;
+use App\Mail\TestMail;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -45,7 +46,6 @@ class UserController extends Controller
             'message' => 'booking room success',
             'status' => 'success',
         ], 201);
-
     }
 
     public function cancelBooking($id)
@@ -56,7 +56,6 @@ class UserController extends Controller
                 'message' => 'cancel booking room success',
                 'status' => 'success'
             ], 201);
-
         } else {
             return response()->json([
                 'message' => 'cancel booking room fail',
@@ -65,4 +64,5 @@ class UserController extends Controller
         }
     }
 
+  
 }
