@@ -41,7 +41,12 @@ Route::prefix('user')->middleware(['auth.jwt'])->group(function () {
     Route::get('bookingdetail', [UserController::class, 'bookingDetail']);
     Route::get('cancelbooking/{id}', [UserController::class, 'cancelBooking']);
     Route::post('search', [RoomController::class, 'multiSearch']);
+    Route::get('detail/{id}',[RoomHostController::class, 'getByid']);
 
 });
 Route::resource('room', RoomController::class);
-
+Route::get('category',[RoomHostController::class, 'category']);
+Route::get('city',[RoomHostController::class, 'city']);
+Route::get('status',[RoomHostController::class, 'status']);
+Route::get('city/{id}',[RoomController::class, 'getCity']);
+Route::get('detailroom/{id}',[RoomController::class,'getByIdRoom']);

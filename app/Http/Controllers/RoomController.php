@@ -31,7 +31,7 @@ class RoomController extends Controller
                 'room' => $rooms,
             ];
         }
-        return response()->json($res);
+        return response()->json($res, 201);
     }
 
     public function create()
@@ -147,9 +147,28 @@ class RoomController extends Controller
         };
         $res = $result->get();
         return response()->json($res, 201);
-
-
     }
 
+    public function getCity($id)
+    {
+        $res = DB::table('city')
+            ->join('rooms', 'rooms.city_id', '=', 'city.id')
+            ->join('categories', 'rooms.category_id', '=', 'categories.id')
+            ->where('rooms.city_id', $id)
+            ->select('rooms.*', 'city.name as cityname', 'categories.name as categoryname', 'categories.price as price')
+            ->get();
+        return response()->json($res, 201);
+    }
 
+    public function getByIdRoom($id)
+    {
+        $res = DB::table('rooms')
+            ->join('city', 'city.id', '=', 'rooms.city_id')
+            ->join('categories', 'categories.id', '=', 'rooms.category_id')
+            // ->join('ratings', 'ratings.room_id', '=', 'rooms.id')
+            ->where('rooms.id', $id)
+            ->select('rooms.*', 'city.name as cityname', 'categories.name as categoryname', 'categories.price as price')
+            ->first();
+        return response()->json($res, 201);
+    }
 }

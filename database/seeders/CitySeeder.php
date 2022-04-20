@@ -9,6 +9,24 @@ class CitySeeder extends Seeder
 {
     public function run()
     {
-        City::factory(10)->create();
+        $city = new City();
+        $city->name = "Hà Nội";
+        $city->save();
+
+        $city = new City();
+        $city->name = "Hồ Chí Minh";
+        $city->save();
+
+        $city = new City();
+        $city->name = "Đà Nẵng";
+        $city->save();
+
+        $city = new City();
+        $city->name = "Huế";
+        $city->save();
+
+        $city = new City();
+        $city->name = "Đà Lạt";
+        $city->save();
     }
 }
