@@ -33,7 +33,7 @@ class UserController extends Controller
             'price' => 'required',
             'startDay' => 'required',
             'endDay' => 'required',
-            'bookingDay' => 'required',
+//            'bookingDay' => 'required',
         ]);
 
         if ($validator->fails()) {
