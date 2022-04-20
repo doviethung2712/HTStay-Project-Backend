@@ -42,7 +42,7 @@ class UserRepository extends BaseRepository
         $booking = new Booking();
         $booking->startDay = $request->startDay;
         $booking->endDay = $request->endDay;
-        $booking->bookingDay = $request->bookingDay;
+        $booking->bookingDay = Carbon::now();
         $booking->price = $request->price;
         $booking->status_id = $request->status_id;
         $booking->user_id = $request->user_id;
@@ -56,7 +56,7 @@ class UserRepository extends BaseRepository
             ->join('status', 'status.id', '=', 'bookings.status_id')
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->join('categories', 'categories.id', '=', 'rooms.category_id')
-            ->select('bookings.*', 'users.name as username', 'rooms.name as roomname', 'status.name as statusname', 'categories.name as categoryname')
+            ->select('bookings.*', 'users.username as username', 'rooms.name as roomname', 'status.name as statusname', 'categories.name as categoryname')
             ->where('users.id', $id)
             ->get();
     }
