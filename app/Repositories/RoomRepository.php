@@ -30,7 +30,7 @@ class RoomRepository extends BaseRepository
         $room->status_id = $data['status_id'];
         $room->city_id = $data['city_id'];
         $room->category_id = $data['category_id'];
-        // $room->image = $data['image'];
+        $room->image = $data['image'];
         $room->user_id = $data['user_id'];
         $room->save();
     }
@@ -46,6 +46,7 @@ class RoomRepository extends BaseRepository
         $room->bathroom = $data['bathroom'] ?? $room->bathroom;
         $room->status_id = $data['status_id'] ?? $room->status_id;
         $room->city_id = $data['city_id'] ?? $room->city_id;
+        $room->image = $data['image'] ?? $room->image;
         $room->category_id = $data['category_id'] ?? $room->category_id;
         $room->user_id = $data['user_id'] ?? $room->user_id;
         $room->save();
@@ -59,8 +60,9 @@ class RoomRepository extends BaseRepository
             ->join('users', 'users.id', '=', 'rooms.user_id')
             ->join('categories', 'categories.id', '=', 'rooms.category_id')
             ->join('city', 'city.id', '=', 'rooms.city_id')
+            ->join('status','status.id', '=','rooms.status_id')
             // ->join('images', 'rooms.id', '=', 'images.room_id')
-            ->select('rooms.*', "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
+            ->select('rooms.*',"status.name as statusname", "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
             ->get();
     }
 
