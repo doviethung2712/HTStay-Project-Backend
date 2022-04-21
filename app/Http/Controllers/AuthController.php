@@ -27,7 +27,7 @@ class AuthController extends Controller
     public function registerUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:users',
+            'username' => 'required',
             'phone'=>'required|max:10',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:8',
@@ -82,16 +82,18 @@ class AuthController extends Controller
     public function changePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'oldPassword' => 'required',
-            'newPassword' => 'required',
+            'oldpassword' => 'required',
+            'newpassword' => 'required',
+            'newconfirmpassword'=> 'required|same:newpassword',
+
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
         $user = Auth::user();
-        if (Hash::check($request->oldPassword, $user->password)) {
+        if (Hash::check($request->oldpassword, $user->password)) {
             $user->update([
-                'password' => Hash::make($request->newPassword)
+                'password' => Hash::make($request->newpassword)
             ]);
             return response()->json([
                 'message' => 'Password successfully updated',

@@ -131,12 +131,12 @@ class RoomController extends Controller
         if (!empty($request->address)) {
             $result = $result->where('rooms.address', 'like', '%' . $request->address . '%');
         }
-        if (!empty($request->categoryname)) {
-            $request = $result->where('categories.name', 'like', '%' . $request->categoryname . '%');
+        if (!empty($request->city)) {
+            $request = $result->where('city.name', 'like', '%' . $request->city . '%');
         }
         if (!empty($request->price)) {
             if ($request->price == 1) {
-                $result = $result->where('categories.price', '<', '5000');
+                $result = $result->where('categories.price', '<', '600');
             }
             if ($request->price == 2) {
                 $result = $result->whereBetween('categories.price', [500, 5000]);

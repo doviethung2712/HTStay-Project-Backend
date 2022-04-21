@@ -28,25 +28,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('register',[AuthController::class,'getAll']);
 Route::post('register', [AuthController::class, 'registerUser']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('logout', [AuthController::class, 'logout']);
 
 Route::prefix('admin')->middleware(['auth.jwt'])->group(function () {
     Route::post('password', [AuthController::class, 'changePassword']);
-    Route::get('logout', [AuthController::class, 'logout']);
     //    Route::get('sendemail',[MailController::class,'sendEmail']);
     Route::get('host/{id}', [RoomHostController::class, 'roomHost']);
 });
 Route::prefix('user')->middleware(['auth.jwt'])->group(function () {
     Route::resource('room', RoomController::class);
     Route::post('booking', [UserController::class, 'booking']);
-    Route::get('bookingdetail', [UserController::class, 'bookingDetail']);
+    Route::get('bookingdetail/{id}', [UserController::class, 'bookingDetail']);
     Route::get('cancelbooking/{id}', [UserController::class, 'cancelBooking']);
-    Route::post('search', [RoomController::class, 'multiSearch']);
-    Route::get('detail/{id}',[RoomHostController::class, 'getByid']);
-
+    Route::get('detail/{id}', [RoomHostController::class, 'getByid']);
 });
+Route::post('search', [RoomController::class, 'multiSearch']);
 Route::resource('room', RoomController::class);
-Route::get('category',[RoomHostController::class, 'category']);
-Route::get('city',[RoomHostController::class, 'city']);
-Route::get('status',[RoomHostController::class, 'status']);
-Route::get('city/{id}',[RoomController::class, 'getCity']);
-Route::get('detailroom/{id}',[RoomController::class,'getByIdRoom']);
+Route::get('category', [RoomHostController::class, 'category']);
+Route::get('city', [RoomHostController::class, 'city']);
+Route::get('status', [RoomHostController::class, 'status']);
+Route::get('city/{id}', [RoomController::class, 'getCity']);
+Route::get('detailroom/{id}', [RoomController::class, 'getByIdRoom']);
+Route::get('rating/{id}', [UserController::class, 'rating']);

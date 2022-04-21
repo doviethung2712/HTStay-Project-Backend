@@ -19,8 +19,9 @@ class RoomHostController extends Controller
             ->join('users', 'users.id', '=', 'rooms.user_id')
             ->join('categories', 'categories.id', '=', 'rooms.category_id')
             ->join('city', 'city.id', '=', 'rooms.city_id')
+            ->join('status', 'status.id', '=', 'rooms.status_id')
             // ->join('images', 'rooms.id', '=', 'images.room_id')
-            ->select('rooms.*', "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
+            ->select('rooms.*',"status.name as statusname", "city.name as cityname", "categories.name as categoryname", "categories.price as price", "users.username as username")
             ->where('rooms.user_id', $id)
             ->get();
         if ($room) {

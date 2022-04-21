@@ -22,9 +22,9 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function bookingDetail()
+    public function bookingDetail($id)
     {
-        $bkd = $this->userRepository->bookingDetail(Auth::user()->id);
+        $bkd = $this->userRepository->bookingDetail($id);
         return response()->json($bkd, 201);
     }
 
@@ -34,7 +34,7 @@ class UserController extends Controller
             'price' => 'required',
             'startDay' => 'required',
             'endDay' => 'required',
-//            'bookingDay' => 'required',
+            //            'bookingDay' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -64,5 +64,15 @@ class UserController extends Controller
         }
     }
 
-  
+    public function rating($id)
+    {
+        $rating = DB::table('rooms')
+            ->join('ratings', 'ratings.room_id', '=', 'rooms.id')
+            ->join('users', 'users.id', '=', 'ratings.user_id')
+            ->where('rooms.id', $id)
+            ->select('ratings.*','users.username as username')
+            ->get();
+
+        return response()->json($rating, 201);
+    }
 }
